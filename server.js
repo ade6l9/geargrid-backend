@@ -15,13 +15,22 @@ const app = express();
 //-----------------------FOR UPLOADS FOLDER-----------------------//
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://geargrid.vercel.app'
+];
+
 app.use(express.json({limit: '10mb'}));
 app.use(cors({
-  origin: [
-    'http://localhost:3000', 
-    'https://geargrid.vercel.app',
-    'https://geargrid-ade6l9s-projects.vercel.app'],
-  credentials: true, 
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'Specified orgins are not allowed to access this site';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
 }));
 app.use(bodyParser.json());
 app.use(cookieParser());
