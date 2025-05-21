@@ -19,7 +19,8 @@ app.use(express.json({limit: '10mb'}));
 app.use(cors({
   origin: [
     'http://localhost:3000', 
-    'https://geargrid-2obb7ay94-ade6l9s-projects.vercel.app'],
+    'https://geargrid.vercel.app',
+    'https://geargrid-ade6l9s-projects.vercel.app'],
   credentials: true, 
 }));
 app.use(bodyParser.json());
