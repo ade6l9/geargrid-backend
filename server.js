@@ -448,8 +448,8 @@ app.post('/api/signup', async (req, res) => {
 app.post('/api/logout', (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
+    secure: true,         
+    sameSite: 'None'      
   });
   res.json({ success: true, message: 'Logged out successfully' });
 });
